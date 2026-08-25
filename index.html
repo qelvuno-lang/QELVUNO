@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QELVUNO · Gestiona tu Google Business Profile con IA</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome (iconos) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: #4f46e5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #4f46e5;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: #1f2937;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 600;
+      color: #4b5563;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #4f46e5;
+    }
+
+    .btn-primary {
+      background: #4f46e5;
+      color: #ffffff !important;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-primary:hover {
+      background: #4338ca;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #4f46e5;
+      color: #4f46e5;
+      padding: 10px 26px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    .btn-large {
+      padding: 16px 40px;
+      font-size: 18px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      padding: 40px 0 80px;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #1f2937;
+    }
+
+    .hero-content h1 span {
+      color: #4f46e5;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      color: #6b7280;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 40px;
+    }
+
+    .hero-stats div {
+      text-align: center;
+    }
+
+    .hero-stats .number {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1f2937;
+    }
+
+    .hero-stats .label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .hero-image {
+      flex: 1;
+      min-width: 280px;
+      text-align: center;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15);
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .card {
+      background: #f9fafb;
+      padding: 32px 24px;
+      border-radius: 16px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .card i {
+      font-size: 40px;
+      color: #4f46e5;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #6b7280;
+    }
+
+    /* ===== PRECIOS ===== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .pricing-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    .pricing-card:hover {
+      border-color: #4f46e5;
+      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.08);
+    }
+
+    .pricing-card.popular {
+      border-color: #4f46e5;
+      background: #f8f7ff;
+    }
+
+    .pricing-card .badge {
+      background: #4f46e5;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .pricing-card .price {
+      font-size: 42px;
+      font-weight: 800;
+      color: #1f2937;
+    }
+
+    .pricing-card .price span {
+      font-size: 18px;
+      font-weight: 400;
+      color: #6b7280;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin: 24px 0;
+      text-align: left;
+    }
+
+    .pricing-card ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .pricing-card ul li i {
+      color: #4f46e5;
+      margin-right: 10px;
+    }
+
+    /* ===== PASOS ===== */
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      text-align: center;
+      max-width: 200px;
+    }
+
+    .step .circle {
+      width: 64px;
+      height: 64px;
+      background: #4f46e5;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .step h4 {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* ===== FORMULARIO ===== */
+    .form-section {
+      background: #f9fafb;
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-section h2 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .form-section p {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      transition: border 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #1f2937;
+      color: #9ca3af;
+      padding: 40px 0;
+      margin-top: 40px;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    footer a {
+      color: #9ca3af;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #ffffff;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 32px;
+      }
+
+      .hero-stats {
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-section {
+        padding: 24px;
+      }
+
+      .steps {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <div class="container">
+    <nav>
+      <div class="logo">QELVUNO<span>.</span></div>
+      <div class="nav-links">
+        <a href="#beneficios">Beneficios</a>
+        <a href="#precios">Precios</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#contacto" class="btn-primary">Solicitar demo</a>
+      </div>
+    </nav>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <div class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Gestiona tu <span>Google Business Profile</span> con IA</h1>
+        <p>Automatiza reseñas, publicaciones e informes. QELVUNO te ayuda a destacar en Google sin esfuerzo.</p>
+        <div class="hero-actions">
+          <a href="#contacto" class="btn-primary btn-large">📅 Solicitar demostración</a>
+          <a href="#beneficios" class="btn-outline btn-large">Saber más</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="number">150+</div>
+            <div class="label">Clientes activos</div>
+          </div>
+          <div>
+            <div class="number">4.8★</div>
+            <div class="label">Valoración media</div>
+          </div>
+          <div>
+            <div class="number">12k+</div>
+            <div class="label">Reseñas gestionadas</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <!-- SVG ilustrativo -->
+        <svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="40" width="360" height="220" rx="16" fill="#f3f4f6"/>
+          <rect x="40" y="60" width="320" height="180" rx="8" fill="#ffffff"/>
+          <rect x="60" y="80" width="280" height="60" rx="4" fill="#e5e7eb"/>
+          <rect x="60" y="155" width="120" height="30" rx="4" fill="#4f46e5"/>
+          <rect x="195" y="155" width="145" height="30" rx="4" fill="#e5e7eb"/>
+          <rect x="60" y="200" width="280" height="24" rx="4" fill="#e5e7eb"/>
+          <rect x="60" y="230" width="180" height="10" rx="4" fill="#d1d5db"/>
+          <circle cx="100" cy="280" r="10" fill="#4f46e5"/>
+          <circle cx="140" cy="280" r="10" fill="#d1d5db"/>
+          <circle cx="180" cy="280" r="10" fill="#d1d5db"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== BENEFICIOS ===== -->
+  <section id="beneficios" style="background:#f9fafb;">
+    <div class="container">
+      <h2 class="section-title">Todo lo que necesitas para <span style="color:#4f46e5;">dominar tu ficha de Google</span></h2>
+      <p class="section-subtitle">QELVUNO centraliza y automatiza la gestión de tu presencia local.</p>
+      <div class="grid-3">
+        <div class="card">
+          <i class="fas fa-star"></i>
+          <h3>Gestión de reseñas</h3>
+          <p>Responde a reseñas con ayuda de IA. Mejora tu reputación y visibilidad.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>Publicaciones automáticas</h3>
+          <p>Programa y publica contenido en tu perfil de Google Business sin esfuerzo.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Informes mensuales</h3>
+          <p>Recibe informes detallados con métricas clave y recomendaciones personalizadas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRECIOS ===== -->
+  <section id="precios">
+    <div class="container">
+      <h2 class="section-title">Planes para <span style="color:#4f46e5;">cada negocio</span></h2>
+      <p class="section-subtitle">Elige el plan que mejor se adapte a tus necesidades. Sin permanencia.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Básico</h3>
+          <div class="price">49€ <span>/mes</span></div>
+          <ul>
+            <li><i class="fas fa-check"></i> Gestión de ficha GBP</li>
+            <li><i class="fas fa-check"></i> 4 publicaciones / mes</li>
+            <li><i class="fas fa-check"></i> 10 respuestas de reseñas</li>
+            <li><i class="fas fa-check"></i> Informe mensual</li>
+          </ul>
+          <a href="#contacto" class="btn-outline" style="display:block;">Elegir plan</a>
+        </div>
+        <div class="pricing-card popular">
+          <div class="badge">Más popular</div>
+          <h3>Pro</h3>
+          <div class="price">109€ <span>/mes</span></div>
+          <ul>
+            <li><i class="fas fa-check"></i> Todo lo del Básico</li>
+            <li><i class="fas fa-check"></i> 8 publicaciones / mes</li>
+            <li><i class="fas fa-check"></i> 30 respuestas de reseñas</li>
+            <li><i class="fas fa-check"></i> Respuestas con IA</li>
+            <li><i class="fas fa-check"></i> Informe detallado</li>
+          </ul>
+          <a href="#contacto" class="btn-primary" style="display:block;">Elegir plan</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Premium</h3>
+          <div class="price">249€ <span>/mes</span></div>
+          <ul>
+            <li><i class="fas fa-check"></i> Todo lo del Pro</li>
+            <li><i class="fas fa-check"></i> 12 publicaciones / mes</li>
+            <li><i class="fas fa-check"></i> 60 respuestas de reseñas</li>
+            <li><i class="fas fa-check"></i> Estrategia proactiva</li>
+            <li><i class="fas fa-check"></i> Informes avanzados</li>
+          </ul>
+          <a href="#contacto" class="btn-outline" style="display:block;">Elegir plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CÓMO FUNCIONA ===== -->
+  <section id="como-funciona" style="background:#f9fafb;">
+    <div class="container">
+      <h2 class="section-title">Empieza en <span style="color:#4f46e5;">3 pasos</span></h2>
+      <p class="section-subtitle">Activa tu ficha de Google Business Profile con QELVUNO de forma rápida y sencilla.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="circle">1</div>
+          <h4>Contacta</h4>
+          <p>Rellena el formulario y cuéntanos tu negocio.</p>
+        </div>
+        <div class="step">
+          <div class="circle">2</div>
+          <h4>Auditoría</h4>
+          <p>Analizamos tu ficha de Google y te damos un plan.</p>
+        </div>
+        <div class="step">
+          <div class="circle">3</div>
+          <h4>Activación</h4>
+          <p>Ponemos en marcha tu estrategia y empiezas a notar resultados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FORMULARIO DE CONTACTO ===== -->
+  <section id="contacto">
+    <div class="container">
+      <div class="form-section">
+        <h2>📅 Solicita tu demostración</h2>
+        <p>Rellena el formulario y te contactaremos en menos de 24h.</p>
+        <form action="#" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000">
+            </div>
+            <div class="form-group">
+              <label for="negocio">Nombre del negocio *</label>
+              <input type="text" id="negocio" name="negocio" placeholder="Tu negocio" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="plan">Plan que te interesa</label>
+            <select id="plan" name="plan">
+              <option value="basico">Básico (49€/mes)</option>
+              <option value="pro" selected>Pro (109€/mes)</option>
+              <option value="premium">Premium (249€/mes)</option>
+              <option value="no-seguro">Aún no lo sé</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos qué necesitas..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;padding:16px;font-size:18px;">
+            Enviar solicitud
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div>
+        <strong style="color:#ffffff;font-size:18px;">QELVUNO</strong>
+        <p style="margin-top:4px;font-size:14px;">Gestión profesional de Google Business Profile</p>
+      </div>
+      <div style="text-align:right;font-size:14px;">
+        <a href="#">Política de privacidad</a> · 
+        <a href="#">Aviso legal</a> · 
+        <a href="#">Baja de comunicaciones</a>
+        <p style="margin-top:8px;color:#6b7280;">© 2026 QELVUNO · Todos los derechos reservados</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCROLL SUAVE ===== -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
